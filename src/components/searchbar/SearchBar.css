@@ -1,0 +1,15 @@
+.section-search input {
+  padding: 0 5px !important;
+  font-size: 20px !important;
+  display: block;
+  width: 90% !important;
+  border: #f4f4f4 2px solid !important;
+  color: #000 !important;
+}
+.section-search button.submit {
+  color: #000 !important;
+  font-weight: 500;
+}
+.section-search button.submit:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}

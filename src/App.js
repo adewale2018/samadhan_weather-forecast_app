@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./components/navbar/NavBar";
+import SearchBar from "./components/searchbar/SearchBar";
 
 function App() {
   return (
@@ -7,7 +8,14 @@ function App() {
       <header>
         <NavBar />
       </header>
-      {/* <a href="/" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a> */}
+      <main>
+        <section
+          id='searchBar'
+          className='section section-search teal darken-1 white-text center'
+        >
+          <SearchBar />
+        </section>
+      </main>
     </div>
   );
 }
