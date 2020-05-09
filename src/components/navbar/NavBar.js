@@ -2,9 +2,8 @@ import React from "react";
 
 const NavBar = () => {
   return (
-    <div>
-      <div className='navbar-fixed'>
-        <nav className='teal'>
+      <div className='navbar-fixed' >
+        <nav className='teal' style={{borderBottom: ".2rem solid #fff"}}>
           <div className='nav-wrapper'>
             <div className='container'>
               <i className='hide-on-small-only fas fa-cloud-sun-rain'></i>
@@ -18,7 +17,7 @@ const NavBar = () => {
                 }}
               >
                 Weather{" "}
-                <sub>
+                <sup>
                   <span
                     style={{
                       fontSize: "1rem",
@@ -29,19 +28,25 @@ const NavBar = () => {
                   >
                     Forecast
                   </span>
-                </sub>
+                </sup>
               </a>
 
               <ul className='right hide-on-med-and-down'>
                 <li>
-                  <a href='/'>Home</a>
+                  <a
+                    href='https://github.com/adewale2018/samadhan_weather-forecast_app'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Check on GitHub
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
       </div>
-    </div>
+  
   );
 };
 
