@@ -22,8 +22,20 @@ const WeatherApp = () => {
   const requestMapQuestApi = async (city) => {
     let res = await axios.get(`${API.base1}key=${API.key1}&location=${city}`);
     const { latLng, mapUrl } = await res.data.results[0].locations[0];
+    setIsLoading(false);
     return { latLng, mapUrl };
   };
+
+  const requestOpenWeatherApi = async (lats, lngs) => {
+    setIsLoading(true);
+    let res = await axios.get(
+      `${API.base2}lat=${lats}&lon=${lngs}&units=metric&exclude=hourly&appid=${API.key2}`
+    );
+    const { lat, lon, current, daily, timezone } = await res.data;
+    setIsLoading(false);
+    return { lon, lat, current, daily, timezone };
+  };
+  
 
   if (isLoading) {
     return <h1>LOADING DATA...</h1>;
@@ -33,7 +45,7 @@ const WeatherApp = () => {
       <SearchBar />
       <section>
         <h3>Data Here</h3>
-        <button onClick={() => requestMapQuestApi("Lagos, Nigeria")}>Click Me</button>
+        <button onClick={() => requestOpenWeatherApi(6.5, 3.4)}>Click Me</button>
       </section>
     </div>
   );
