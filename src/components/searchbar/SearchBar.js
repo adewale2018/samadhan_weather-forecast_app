@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 
-const SearchBar = () => {
+const SearchBar = ({ searchCity }) => {
   const [state, setState] = useState("");
   const handleChange = (e) => {
     setState(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchCity(state);
   };
   return (
     <div className='container center'>
       <div className='row center'>
         <div className='col s12 center'>
           <h5>Enter City Name</h5>
-          <form className='input-field center'>
+          <form className='input-field center' onSubmit={handleSubmit}>
             <input
               type='text'
               placeholder='E.g. Lagos, Nigeria'

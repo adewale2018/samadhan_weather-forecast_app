@@ -31,21 +31,83 @@ const WeatherApp = () => {
     let res = await axios.get(
       `${API.base2}lat=${lats}&lon=${lngs}&units=metric&exclude=hourly&appid=${API.key2}`
     );
+    console.log(res.data);
     const { lat, lon, current, daily, timezone } = await res.data;
     setIsLoading(false);
     return { lon, lat, current, daily, timezone };
   };
-  
+
+  const fetchData = async (city) => {
+    const { mapUrl, latLng } = await requestMapQuestApi(city);
+    const { lng, lat } = latLng;
+    const { current, daily, timezone } = await requestOpenWeatherApi(lat, lng);
+    setMapUrl(mapUrl);
+    setCoordinates(latLng);
+    setTimeZone(timezone);
+    setCurrent(current);
+    setDaily(daily);
+  };
+
+  const searchCity = (city) => {
+    fetchData(city);
+  };
+
+  useEffect(() => {
+    const initApp =  () => {
+      fetchData("Nairobi, Kenya");
+    };
+    initApp();
+  }, []);
+
+  const timeConverter = (dt) => new Date(dt * 1000).toUTCString();
+
+  const { lat, lng } = coordinates;
+  const { dt, temp, humidity } = current;
 
   if (isLoading) {
     return <h1>LOADING DATA...</h1>;
   }
   return (
     <div>
-      <SearchBar />
+      <SearchBar searchCity={searchCity} />
       <section>
-        <h3>Data Here</h3>
-        <button onClick={() => requestOpenWeatherApi(6.5, 3.4)}>Click Me</button>
+        <div className='divider'></div>
+        <div className='container center'>
+          <h3 className='center'>{timezone.toUpperCase()}</h3>
+          <span>{timeConverter(dt)}</span>
+          <div className='row center'>
+            <div className='col s3 center'>
+              <div className='card'>
+                <div className='card-image waves-effect waves-block waves-light'>
+                  <img
+                    className='activator'
+                    src={mapUrl}
+                    alt={`Map showing ${timezone}`}
+                  />
+                </div>
+                <div className='card-content'>
+                  <span className='card-title activator grey-text text-darken-4'>
+                    <ul className='collection'>
+                      <li className='collection-item'>Latitude: {lat}</li>
+                      <li className='collection-item'>Longitude: {lng}</li>
+                    </ul>
+                  </span>
+                </div>
+                <div className='card-reveal'>
+                  <span className='card-title grey-text text-darken-4'>
+                    <i className='material-icons right'>close</i>
+                    <h5>{timezone}</h5>
+                    <ul className='collection'>
+                      <li className='collection-item'>Latitude: {lat}</li>
+                      <li className='collection-item'>Longitude: {lng}</li>
+                    </ul>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className='col s9 center'></div>
+          </div>
+        </div>
       </section>
     </div>
   );
