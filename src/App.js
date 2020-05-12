@@ -1,7 +1,6 @@
 import React from "react";
-import NavBar from "./components/navbar/NavBar";
-import SearchBar from "./components/searchbar/SearchBar";
-
+import WeatherApp from './components/weather_app/WeatherApp';
+import NavBar from './components/navbar/NavBar';
 function App() {
   return (
     <div className='App'>
@@ -13,7 +12,7 @@ function App() {
           id='searchBar'
           className='section section-search teal darken-1 white-text center'
         >
-          <SearchBar />
+          <WeatherApp />
         </section>
       </main>
     </div>

@@ -10,7 +10,7 @@ const SearchBar = () => {
     <div className='container center'>
       <div className='row center'>
         <div className='col s12 center'>
-          <h3>Enter City Name</h3>
+          <h5>Enter City Name</h5>
           <form className='input-field center'>
             <input
               type='text'

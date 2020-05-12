@@ -5,30 +5,18 @@ const NavBar = () => {
       <div className='navbar-fixed' >
         <nav className='teal' style={{borderBottom: ".2rem solid #fff"}}>
           <div className='nav-wrapper'>
-            <div className='container'>
-              <i className='hide-on-small-only fas fa-cloud-sun-rain'></i>
               <a
                 href='/'
-                className='brand-logo'
+                className='brand-logo left'
                 style={{
                   fontFamily: "'Raleway', sans-serif",
                   fontWeight: "700",
                   marginLeft: "1rem",
+                  letterSpacing: ".1rem"
                 }}
               >
-                Weather{" "}
-                <sup>
-                  <span
-                    style={{
-                      fontSize: "1rem",
-                      fontFamily: "'Oswald', sans-serif",
-                      fontWeight: "100",
-                      letterSpacing: ".2rem",
-                    }}
-                  >
-                    Forecast
-                  </span>
-                </sup>
+               <i className='fas fa-cloud-sun-rain center'></i>
+                Weather Forecast
               </a>
 
               <ul className='right hide-on-med-and-down'>
@@ -42,7 +30,7 @@ const NavBar = () => {
                   </a>
                 </li>
               </ul>
-            </div>
+            
           </div>
         </nav>
       </div>
