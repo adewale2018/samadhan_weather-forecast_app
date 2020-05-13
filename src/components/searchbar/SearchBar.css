@@ -3,15 +3,14 @@
   font-size: 20px !important;
   display: block;
   width: 90% !important;
-  border: #f4f4f4 2px solid !important;
+  border: teal 2px solid !important;
   color: #000 !important;
 }
 .section-search button.submit {
-  color: #000 !important;
+  color: #fff !important;
   font-weight: 700;
   font-family: "Raleway', sans-serif" !important;
 }
 .section-search button.submit:hover {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  color: #fff !important;
+  color: #000 !important;
 }

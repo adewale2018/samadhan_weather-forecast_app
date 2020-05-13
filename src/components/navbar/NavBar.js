@@ -3,7 +3,7 @@ import React from "react";
 const NavBar = () => {
   return (
       <div className='navbar-fixed' >
-        <nav className='teal' style={{borderBottom: ".2rem solid #fff"}}>
+        <nav className='teal'>
           <div className='nav-wrapper'>
               <a
                 href='/'
