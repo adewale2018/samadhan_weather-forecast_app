@@ -5,7 +5,7 @@ import SearchBar from "./../searchbar/SearchBar";
 
 const API = {
   key1: "d9qZXAtyE6yXTe0cDhfRF6s3PmImIuFR",
-  base1: "http://www.mapquestapi.com/geocoding/v1/address?",
+  base1: "https://www.mapquestapi.com/geocoding/v1/address?",
   key2: "286562a1959f4ea27c042b585488bcf6",
   base2: "https://api.openweathermap.org/data/2.5/onecall?",
 };
@@ -53,7 +53,7 @@ const WeatherApp = () => {
   };
 
   useEffect(() => {
-    const initApp =  () => {
+    const initApp = () => {
       fetchData("Nairobi, Kenya");
     };
     initApp();
@@ -65,18 +65,35 @@ const WeatherApp = () => {
   const { dt, temp, humidity } = current;
 
   if (isLoading) {
-    return <h1>LOADING DATA...</h1>;
+    return (
+      <div>
+        <h4 className="teal-text">Loading...</h4>
+        <div className='preloader-wrapper big active'>
+          <div className='spinner-layer spinner-blue-only'>
+            <div className='circle-clipper left'>
+              <div className='circle'></div>
+            </div>
+            <div className='gap-patch'>
+              <div className='circle'></div>
+            </div>
+            <div className='circle-clipper right'>
+              <div className='circle'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
   return (
     <div>
       <SearchBar searchCity={searchCity} />
       <section>
         <div className='divider'></div>
-        <div className='container center'>
-          <h3 className='center'>{timezone.toUpperCase()}</h3>
-          <span>{timeConverter(dt)}</span>
+        <div className='container center teal-text'>
+          <h4 className='center'>{timezone.toUpperCase()}</h4>
+          <span style={{fontSize: '1.3rem', fontStyle: "italic"}}>{timeConverter(dt)}</span>
           <div className='row center'>
-            <div className='col s3 center'>
+            <div className='col s12 m3 center'>
               <div className='card'>
                 <div className='card-image waves-effect waves-block waves-light'>
                   <img
@@ -105,7 +122,7 @@ const WeatherApp = () => {
                 </div>
               </div>
             </div>
-            <div className='col s9 center'></div>
+            <div className='col s12 m9 center'></div>
           </div>
         </div>
       </section>

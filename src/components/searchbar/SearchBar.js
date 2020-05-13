@@ -23,8 +23,9 @@ const SearchBar = ({ searchCity }) => {
               value={state}
               onChange={handleChange}
               className='white grey-text'
+              required
             />
-            <button className='submit waves-effect waves-light btn btn-large teal lighten-5'>
+            <button className='submit waves-effect waves-light btn btn-large teal darken-5'>
               <i className='material-icons right'>send</i>
               Search
             </button>

@@ -10,7 +10,7 @@ function App() {
       <main>
         <section
           id='searchBar'
-          className='section section-search teal darken-1 white-text center'
+          className='section section-search darken-1 white-text center'
         >
           <WeatherApp />
         </section>
