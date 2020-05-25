@@ -13,11 +13,11 @@ const WeatherApp = () => {
     base2 = process.env.REACT_APP_BASE_2;
     base3 = process.env.REACT_APP_BASE_3;
   } else {
-    key1 = process.env.KEY_1;
-    base1 = process.env.BASE_1;
-    key2 = process.env.KEY_2;
-    base2 = process.env.BASE_2;
-    base3 = process.env.BASE_3;
+    key1 = process.env.CLIENT_KEY_1;
+    base1 = process.env.CLIENT_BASE_1;
+    key2 = process.env.CLIENT_KEY_2;
+    base2 = process.env.CLIENT_BASE_2;
+    base3 = process.env.CLIENT_BASE_3;
   }
 
   const [timezone, setTimeZone] = useState("");
