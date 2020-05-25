@@ -19,15 +19,15 @@ The following commands enable you run the app:
 ```
 >> npm install 
 ```
-- Start the server: RUN THE COMMAND
+- Get the app running: RUN THE COMMAND
 ```
 >> npm start
-```
+
 
 ## Features of the application
-  * User can search for a city to know the present weather condition of    that city.
-  * User can also have the knowledge of the weather in the next 3 days.
-  * Also, information like latitude, longitude, sunrise and sunset are displayed on the app.
+  - User can search for a city to know the present weather condition of    that city.
+  - User can also have the knowledge of the weather in the next 3 days.
+  - Also, information like latitude, longitude, sunrise and sunset are displayed on the app.
   
   
 ## Testing
