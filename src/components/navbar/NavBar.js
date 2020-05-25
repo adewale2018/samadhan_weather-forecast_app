@@ -7,7 +7,7 @@ const NavBar = () => {
           <div className='nav-wrapper'>
               <a
                 href='/'
-                className='brand-logo left'
+                className='left'
                 style={{
                   fontFamily: "'Raleway', sans-serif",
                   fontWeight: "700",

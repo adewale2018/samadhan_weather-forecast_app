@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import "./WeatherApp.css";
 import SearchBar from "./../searchbar/SearchBar";
 
-const API = {
-  key1: "d9qZXAtyE6yXTe0cDhfRF6s3PmImIuFR",
-  base1: "https://www.mapquestapi.com/geocoding/v1/address?",
-  key2: "286562a1959f4ea27c042b585488bcf6",
-  base2: "https://api.openweathermap.org/data/2.5/onecall?",
-};
-
 const WeatherApp = () => {
+  const key1 = process.env.REACT_APP_KEY_1;
+  const base1 = process.env.REACT_APP_BASE_1;
+  const key2 = process.env.REACT_APP_KEY_2;
+  const base2 = process.env.REACT_APP_BASE_2;
+  const base3 = process.env.REACT_APP_BASE_3;
+
   const [timezone, setTimeZone] = useState("");
   const [current, setCurrent] = useState({});
   const [weather, setWeather] = useState([]);
@@ -20,8 +20,9 @@ const WeatherApp = () => {
   const [mapUrl, setMapUrl] = useState("");
 
   const requestMapQuestApi = async (city) => {
-    let res = await axios.get(`${API.base1}key=${API.key1}&location=${city}`);
-    const { latLng, mapUrl } = await res.data.results[0].locations[0];
+    setIsLoading(true);
+    const res = await axios.get(`${base1}key=${key1}&location=${city}`);
+    const { latLng, mapUrl } = res.data.results[0].locations[0];
     setIsLoading(false);
     return { latLng, mapUrl };
   };
@@ -29,12 +30,25 @@ const WeatherApp = () => {
   const requestOpenWeatherApi = async (lats, lngs) => {
     setIsLoading(true);
     let res = await axios.get(
-      `${API.base2}lat=${lats}&lon=${lngs}&units=metric&exclude=hourly&appid=${API.key2}`
+      `${base2}lat=${lats}&lon=${lngs}&units=metric&appid=${key2}`
     );
-    console.log(res.data);
-    const { lat, lon, current, daily, timezone } = await res.data;
+    const { lat, lon, current, daily, timezone } = res.data;
     setIsLoading(false);
     return { lon, lat, current, daily, timezone };
+  };
+
+  const requestHistoricalData = async (lats, lngs, dt) => {
+    setIsLoading(true);
+    let i = 1;
+    while (i < 6) {
+      let prevTimeStamp = dt * 1000 - 86400000 * i;
+      let res = await axios.get(
+        `${base3}lat=${lats}&lon=${lngs}&dt=${prevTimeStamp}&appid=${key2}`
+      );
+      console.log("HISTORICAL", i, res.data);
+      i++;
+    }
+    setIsLoading(false);
   };
 
   const fetchData = async (city) => {
@@ -47,6 +61,8 @@ const WeatherApp = () => {
     setCurrent(current);
     setDaily(daily);
     setWeather(current.weather[0]);
+    const { dt } = current;
+    // requestHistoricalData(lat, lng, dt);
   };
 
   const searchCity = (city) => {
@@ -60,16 +76,13 @@ const WeatherApp = () => {
     initApp();
   }, []);
 
-  const timeConverter = (dt) => new Date(dt * 1000).toUTCString();
-  const timeConverter2 = (dt) => new Date(dt * 1000).toLocaleTimeString();
-  const dateConverter = (dt) => new Date(dt * 1000).toLocaleDateString();
+  const timeConverter = (dt) => new Date(dt * 1000);
 
   const { lat, lng } = coordinates;
   const { dt, temp, humidity, sunrise, sunset } = current;
   const { description, icon } = weather;
-  // const {dt, rain, humidity, temp, weather } = daily;
+
   const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-  // const iconUrl2 = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
   if (isLoading) {
     return (
@@ -114,10 +127,10 @@ const WeatherApp = () => {
                       <li className='collection-item'>Latitude: {lat}</li>
                       <li className='collection-item'>Longitude: {lng}</li>
                       <li className='collection-item'>
-                        Sunrise: {timeConverter2(sunrise)}
+                        Sunrise: {timeConverter(sunrise).toLocaleTimeString()}
                       </li>
                       <li className='collection-item'>
-                        Sunset: {timeConverter2(sunset)}
+                        Sunset: {timeConverter(sunset).toLocaleTimeString()}
                       </li>
                     </ul>
                   </span>
@@ -136,7 +149,7 @@ const WeatherApp = () => {
             </div>
             <div className='col s12 m9 center'>
               <h5 style={{ fontSize: "1.3rem", fontStyle: "italic" }}>
-                {timeConverter(dt)}
+                {timeConverter(dt).toUTCString()}
               </h5>
               <div>
                 <div className='col s12 m4'>
@@ -161,12 +174,12 @@ const WeatherApp = () => {
               </div>
               <hr />
               <div>
-                <h4 className="center ">DAILY</h4>
+                <h4 className='center '>NEXT THREE DAYS</h4>
                 {daily
-                  .slice(0, 3)
+                  .slice(1, 4)
                   .map(({ dt, rain, humidity, temp, weather }) => (
                     <div className='col s12 m4' key={dt}>
-                      <h6>{dateConverter(dt)}</h6>
+                      <h6>{timeConverter(dt).toLocaleDateString()}</h6>
 
                       <ul className='collection with-header'>
                         <li className='collection-item'>
