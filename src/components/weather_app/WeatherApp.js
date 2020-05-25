@@ -5,11 +5,20 @@ import "./WeatherApp.css";
 import SearchBar from "./../searchbar/SearchBar";
 
 const WeatherApp = () => {
-  const key1 = process.env.REACT_APP_KEY_1;
-  const base1 = process.env.REACT_APP_BASE_1;
-  const key2 = process.env.REACT_APP_KEY_2;
-  const base2 = process.env.REACT_APP_BASE_2;
-  const base3 = process.env.REACT_APP_BASE_3;
+  let key1, base1, key2, base2, base3;
+  if (process.env.NODE_ENV !== "production") {
+    key1 = process.env.REACT_APP_KEY_1;
+    base1 = process.env.REACT_APP_BASE_1;
+    key2 = process.env.REACT_APP_KEY_2;
+    base2 = process.env.REACT_APP_BASE_2;
+    base3 = process.env.REACT_APP_BASE_3;
+  } else {
+    key1 = process.env.KEY_1;
+    base1 = process.env.BASE_1;
+    key2 = process.env.KEY_2;
+    base2 = process.env.BASE_2;
+    base3 = process.env.BASE_3;
+  }
 
   const [timezone, setTimeZone] = useState("");
   const [current, setCurrent] = useState({});
